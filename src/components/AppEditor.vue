@@ -29,11 +29,15 @@ import useCanvas from '../composables/use-canvas'
 
   const store = useImageStore();
 
-  const {convasEl,loadImage} = useCanvas()
+  const {convasEl,loadImage, drawOriginalImage} = useCanvas()
   const {reader} = useReader(store.file, ()=>{
     if(!reader.result) return
 
     const dataURL = reader.result.toString()
    loadImage(dataURL)
+
+   store.$subscribe(()=>{
+    drawOriginalImage()
+   })
   })
-</script>../composables/use-canvas../composables/use-reader
+</script>

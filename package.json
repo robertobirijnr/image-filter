@@ -13,7 +13,10 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "@silvia-odwyer/photon": "^0.3.2",
     "pinia": "^2.1.7",
+    "vite-plugin-top-level-await": "^1.4.1",
+    "vite-plugin-wasm": "^3.3.0",
     "vue": "^3.4.15",
     "vue-router": "^4.2.5"
   },
