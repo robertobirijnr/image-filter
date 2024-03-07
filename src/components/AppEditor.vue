@@ -14,7 +14,7 @@
             </button>
           
           </div>
-          <a  class="bg-indigo-700 py-4 block w-full mt-2 text-center">Download</a>
+          <a :href="canvasImgURL" download="image.png" class="bg-indigo-700 py-4 block w-full mt-2 text-center">Download</a>
 
         </div>
       </div>
@@ -29,7 +29,7 @@ import useCanvas from '../composables/use-canvas'
 
   const store = useImageStore();
 
-  const {convasEl,loadImage, drawOriginalImage, filterImage} = useCanvas()
+  const {convasEl,loadImage, drawOriginalImage, filterImage,canvasImgURL} = useCanvas()
   const {reader} = useReader(store.file, ()=>{
     if(!reader.result) return
 

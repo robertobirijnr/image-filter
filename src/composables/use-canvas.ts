@@ -3,10 +3,11 @@ import {open_image, filter, putImageData} from '@silvia-odwyer/photon'
 
 export default function useCanvas(){
     const convasEl = ref<HTMLCanvasElement | null>(null)
-
     let canvasCtx: CanvasRenderingContext2D | null = null;
-
     const imgEl = new Image();
+    const canvasImgURL = ref("");
+    const fileName = ref("")
+
 
     function calculateAspectRation(srcWidth:number, srcHeight:number, maxWidth: number, maxHeight: number){
         const ratio = Math.min(maxWidth / srcWidth, maxHeight, maxHeight)
@@ -33,6 +34,8 @@ export default function useCanvas(){
         convasEl.value.height = newImageDimension.height
 
         canvasCtx.drawImage(imgEl,0,0,newImageDimension.width,newImageDimension.height );
+
+        canvasImgURL.value = convasEl.value.toDataURL();
     }
 
     function filterImage(filterName: string){
@@ -45,12 +48,14 @@ export default function useCanvas(){
         }
 
         putImageData(convasEl.value, canvasCtx, photonImage)
+        canvasImgURL.value = convasEl.value.toDataURL();
     }
 
     return {
         convasEl,
         loadImage,
         drawOriginalImage,
-        filterImage
+        filterImage,
+        canvasImgURL
     }
 }
