@@ -1,4 +1,5 @@
 import {ref} from 'vue';
+import {open_image, filter, putImageData} from '@silvia-odwyer/photon'
 
 export default function useCanvas(){
     const convasEl = ref<HTMLCanvasElement | null>(null)
@@ -34,9 +35,22 @@ export default function useCanvas(){
         canvasCtx.drawImage(imgEl,0,0,newImageDimension.width,newImageDimension.height );
     }
 
+    function filterImage(filterName: string){
+        if(!canvasCtx || !convasEl.value) return;
+
+        const photonImage = open_image(convasEl.value,canvasCtx)
+
+        if(filterName.length){
+            filter(photonImage,filterName)
+        }
+
+        putImageData(convasEl.value, canvasCtx, photonImage)
+    }
+
     return {
         convasEl,
         loadImage,
-        drawOriginalImage
+        drawOriginalImage,
+        filterImage
     }
 }
